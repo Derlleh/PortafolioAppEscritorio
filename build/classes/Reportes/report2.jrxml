@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="33"/>
+	<parameter name="fecha1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT SUM(VALOR), TO_CHAR(TO_DATE(FECHA,'DD-MM-YYYY'), 'MONTH') FROM DETALLE
+   WHERE TO_CHAR(TO_DATE(FECHA,'DD-MM-YYYY'), 'MONTH') <= TO_CHAR(TO_DATE($P{fecha1},'DD-MM-YYYY'), 'MONTH') 
+   AND TO_CHAR(TO_DATE(FECHA,'DD-MM-YYYY'), 'MONTH') >= TO_CHAR(TO_DATE($P{fecha2},'DD-MM-YYYY'), 'MONTH')
+   GROUP BY TO_CHAR(TO_DATE(FECHA,'DD-MM-YYYY'), 'MONTH')]]>
+	</queryString>
+	<field name="SUM(VALOR)" class="java.math.BigDecimal"/>
+	<field name="TO_CHAR(TO_DATE(FECHA,&apos;DD-MM-YYYY&apos;),&apos;MONTH&apos;)" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="114" splitType="Stretch">
+			<image>
+				<reportElement x="350" y="0" width="136" height="112"/>
+				<imageExpression><![CDATA["C:\\Users\\pablo\\Desktop\\ITERACION 2\\Logos Imagenes Serviexpres\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="317" height="59"/>
+				<textElement>
+					<font size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ventas Por Meses ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="59" width="317" height="40"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte del total de ventas mensuales ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="63" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="403" y="0" width="140" height="32"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="303" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Fecha Actual: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="43" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{fecha1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="43" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{fecha2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="87" y="43" width="39" height="20"/>
+				<textElement/>
+				<text><![CDATA[Desde: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="43" width="33" height="20"/>
+				<textElement/>
+				<text><![CDATA[Hasta: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="43" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="284" splitType="Stretch">
+			<elementGroup/>
+			<bar3DChart>
+				<chart>
+					<reportElement x="0" y="0" width="543" height="242"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{TO_CHAR(TO_DATE(FECHA,'DD-MM-YYYY'),'MONTH')}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{TO_CHAR(TO_DATE(FECHA,'DD-MM-YYYY'),'MONTH')}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{SUM(VALOR)}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+				</bar3DPlot>
+			</bar3DChart>
+			<staticText>
+				<reportElement x="101" y="24" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="34" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
